@@ -248,9 +248,9 @@ export const AdminDashboard = () => {
 
           {/* Quick Logs / Info panels */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-left">
-            <div className="glass p-6 rounded-2xl">
+            <div className="glass p-6 rounded-2xl h-full flex flex-col">
               <h4 className="font-bold text-stone-800 tracking-wide mb-4">Aktivitas Sistem Terbaru</h4>
-              <div className="space-y-4">
+              <div className="space-y-4 flex-1">
                 {[
                   { time: '10 menit lalu', text: 'Admin menambahkan mahasiswa baru: Lia Safitri (NIM: 2201010080)', type: 'user' },
                   { time: '1 jam lalu', text: 'Dr. Ahmad Fauzi melakukan approval KRS mahasiswa Informatika', type: 'grade' },
@@ -269,7 +269,7 @@ export const AdminDashboard = () => {
               </div>
             </div>
 
-            <div className="glass p-6 rounded-2xl flex flex-col justify-between">
+            <div className="glass p-6 rounded-2xl flex flex-col justify-between h-full">
               <div>
                 <h4 className="font-bold text-stone-800 tracking-wide mb-2">Informasi Penting Akademik</h4>
                 <p className="text-xs text-stone-550 leading-relaxed">
