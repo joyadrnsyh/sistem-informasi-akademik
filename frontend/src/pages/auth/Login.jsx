@@ -48,14 +48,14 @@ export const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-stone-50 px-4 relative overflow-hidden font-sans">
       {/* Decorative Blur Spheres */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-terracotta-600/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-terracotta-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/5 blur-[120px] pointer-events-none" />
 
       {/* Main card wrapper */}
       <div className="w-full max-w-md glass p-8 rounded-2xl shadow-xl relative z-10 animate-fade-in">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-terracotta-600 to-terracotta-400 text-white font-bold text-2xl shadow-lg shadow-terracotta-500/15 mb-3">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-400 text-white font-bold text-2xl shadow-lg shadow-indigo-500/15 mb-3">
             U
           </div>
           <h2 className="text-2xl font-bold text-stone-800 tracking-wide">Portal Akademik</h2>
@@ -105,13 +105,13 @@ export const Login = () => {
 
           <div className="flex items-center justify-between mb-6">
             <label className="flex items-center gap-2 text-xs text-stone-500 cursor-pointer">
-              <input type="checkbox" className="rounded bg-white border-stone-300 text-terracotta-600 focus:ring-terracotta-500" />
+              <input type="checkbox" className="rounded bg-white border-stone-300 text-indigo-600 focus:ring-indigo-500" />
               <span>Ingat saya</span>
             </label>
             <button
               type="button"
               onClick={() => navigate('/forgot-password')}
-              className="text-xs text-terracotta-600 hover:text-terracotta-500 font-semibold cursor-pointer"
+              className="text-xs text-indigo-600 hover:text-indigo-500 font-semibold cursor-pointer"
             >
               Lupa Password?
             </button>
@@ -151,7 +151,7 @@ export const Login = () => {
             <button
               type="button"
               onClick={() => handleQuickLogin('mhs@sia.ac.id', 'mhs123')}
-              className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-300 text-terracotta-600 hover:text-terracotta-700 shadow-sm transition-all cursor-pointer group"
+              className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-300 text-indigo-600 hover:text-indigo-700 shadow-sm transition-all cursor-pointer group"
             >
               <GraduationCap className="h-5 w-5 mb-1 group-hover:scale-105 transition-transform" />
               <span className="text-[10px] font-bold text-stone-700">Mahasiswa</span>

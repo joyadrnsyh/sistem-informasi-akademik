@@ -93,7 +93,7 @@ export const DosenDashboard = () => {
 
   const getGradeLetter = (score) => {
     if (score >= 85) return { letter: 'A', style: 'text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200' };
-    if (score >= 75) return { letter: 'B', style: 'text-terracotta-700 font-bold bg-terracotta-50 px-2 py-0.5 rounded border border-terracotta-200' };
+    if (score >= 75) return { letter: 'B', style: 'text-indigo-700 font-bold bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200' };
     if (score >= 60) return { letter: 'C', style: 'text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200' };
     if (score >= 50) return { letter: 'D', style: 'text-orange-700 font-bold bg-orange-50 px-2 py-0.5 rounded border border-orange-200' };
     return { letter: 'E', style: 'text-rose-700 font-bold bg-rose-50 px-2 py-0.5 rounded border border-rose-200' };
@@ -167,9 +167,9 @@ export const DosenDashboard = () => {
               <div>
                 <span className="text-xs text-stone-500 font-semibold tracking-wider uppercase">Beban SKS</span>
                 <h3 className="text-2xl font-bold text-stone-800 mt-1">{totalSks} SKS</h3>
-                <span className="text-[10px] text-terracotta-600 font-medium mt-1 inline-block">{schedules.length} Matakuliah Diampu</span>
+                <span className="text-[10px] text-indigo-600 font-medium mt-1 inline-block">{schedules.length} Matakuliah Diampu</span>
               </div>
-              <div className="p-3 bg-terracotta-50 rounded-xl text-terracotta-600">
+              <div className="p-3 bg-indigo-50 rounded-xl text-indigo-600">
                 <BookOpen className="h-6 w-6" />
               </div>
             </div>
@@ -202,10 +202,10 @@ export const DosenDashboard = () => {
             <h3 className="font-bold text-stone-700">Jadwal Mengajar Semester Ini</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {schedules.map((sched) => (
-                <div key={sched.id} className="glass p-5 rounded-2xl border-l-4 border-l-terracotta-500 flex flex-col justify-between gap-4">
+                <div key={sched.id} className="glass p-5 rounded-2xl border-l-4 border-l-indigo-500 flex flex-col justify-between gap-4">
                   <div className="flex justify-between items-start">
                     <div>
-                      <span className="text-[10px] font-bold text-terracotta-600 uppercase tracking-wide bg-terracotta-50 border border-terracotta-100 px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wide bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
                         {sched.code} • {sched.class}
                       </span>
                       <h4 className="font-bold text-stone-800 mt-2 text-base">{sched.name}</h4>
@@ -240,7 +240,7 @@ export const DosenDashboard = () => {
               <select
                 value={selectedCourse}
                 onChange={(e) => setSelectedCourse(e.target.value)}
-                className="w-full px-3.5 py-2 bg-white border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-terracotta-500 focus:ring-2 focus:ring-terracotta-500/20"
+                className="w-full px-3.5 py-2 bg-white border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
               >
                 {schedules.map(s => (
                   <option key={s.id} value={s.id}>{s.code} - {s.name} ({s.class})</option>
@@ -287,7 +287,7 @@ export const DosenDashboard = () => {
                       max="100"
                       value={val}
                       onChange={(e) => handleGradeChange(row.id, 'tugas', e.target.value)}
-                      className="w-16 px-2 py-1 bg-white border border-stone-200 focus:border-terracotta-500 focus:ring-2 focus:ring-terracotta-500/20 rounded text-center text-xs text-stone-800 focus:outline-none"
+                      className="w-16 px-2 py-1 bg-white border border-stone-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded text-center text-xs text-stone-800 focus:outline-none"
                     />
                   )
                 },
@@ -299,7 +299,7 @@ export const DosenDashboard = () => {
                       max="100"
                       value={val}
                       onChange={(e) => handleGradeChange(row.id, 'uts', e.target.value)}
-                      className="w-16 px-2 py-1 bg-white border border-stone-200 focus:border-terracotta-500 focus:ring-2 focus:ring-terracotta-500/20 rounded text-center text-xs text-stone-800 focus:outline-none"
+                      className="w-16 px-2 py-1 bg-white border border-stone-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded text-center text-xs text-stone-800 focus:outline-none"
                     />
                   )
                 },
@@ -311,7 +311,7 @@ export const DosenDashboard = () => {
                       max="100"
                       value={val}
                       onChange={(e) => handleGradeChange(row.id, 'uas', e.target.value)}
-                      className="w-16 px-2 py-1 bg-white border border-stone-200 focus:border-terracotta-500 focus:ring-2 focus:ring-terracotta-500/20 rounded text-center text-xs text-stone-800 focus:outline-none"
+                      className="w-16 px-2 py-1 bg-white border border-stone-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded text-center text-xs text-stone-800 focus:outline-none"
                     />
                   )
                 },

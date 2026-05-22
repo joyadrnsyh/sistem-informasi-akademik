@@ -24,14 +24,14 @@ export const ForgotPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-stone-50 px-4 relative overflow-hidden font-sans">
       {/* Decorative Blur Spheres */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-terracotta-600/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-terracotta-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/5 blur-[120px] pointer-events-none" />
 
       {/* Main card wrapper */}
       <div className="w-full max-w-md glass p-8 rounded-2xl shadow-2xl relative z-10 animate-fade-in">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-terracotta-600 to-terracotta-400 text-white font-bold text-2xl shadow-lg shadow-terracotta-500/15 mb-3">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-400 text-white font-bold text-2xl shadow-lg shadow-indigo-500/15 mb-3">
             U
           </div>
           <h2 className="text-2xl font-bold text-stone-800 tracking-wide">Lupa Kata Sandi</h2>

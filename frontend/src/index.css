@@ -4,17 +4,6 @@
 
 @theme {
   --font-sans: "Inter", sans-serif;
-  --color-terracotta-50: #fdf6f4;
-  --color-terracotta-100: #fbece7;
-  --color-terracotta-200: #f7d4c9;
-  --color-terracotta-300: #f0b29e;
-  --color-terracotta-400: #e5876d;
-  --color-terracotta-500: #dc6344;
-  --color-terracotta-600: #c9492c;
-  --color-terracotta-700: #a73922;
-  --color-terracotta-800: #8b311f;
-  --color-terracotta-900: #742d1e;
-  --color-terracotta-950: #3f150e;
 }
 
 :root {
@@ -54,15 +43,15 @@ body {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(220, 99, 68, 0.12);
-  box-shadow: 0 4px 20px rgba(139, 49, 31, 0.03);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  box-shadow: 0 4px 20px rgba(55, 48, 163, 0.03);
 }
 
 .glass-light {
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(220, 99, 68, 0.06);
+  border: 1px solid rgba(99, 102, 241, 0.06);
 }
 
 /* Page transitions */
@@ -80,4 +69,13 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

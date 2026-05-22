@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import { Bell, LogOut, User, Shield, GraduationCap, BookOpen, Menu } from 'lucide-react';
+import { Bell, LogOut, User, Shield, GraduationCap, BookOpen, Menu, MessageSquare, Calendar, ChevronDown } from 'lucide-react';
 import { Button } from '../ui/Button';
 
 export const Navbar = ({ onToggleSidebar }) => {
@@ -25,7 +25,7 @@ export const Navbar = ({ onToggleSidebar }) => {
   const roleBadgeStyles = {
     admin: 'bg-rose-50 text-rose-700 border-rose-200/50',
     dosen: 'bg-amber-50 text-amber-700 border-amber-200/50',
-    mahasiswa: 'bg-terracotta-50 text-terracotta-700 border-terracotta-200/50',
+    mahasiswa: 'bg-indigo-50 text-indigo-700 border-indigo-200/50',
   };
 
   return (
@@ -38,38 +38,54 @@ export const Navbar = ({ onToggleSidebar }) => {
         >
           <Menu className="h-6 w-6" />
         </button>
-        
+
         <div className="hidden sm:flex flex-col text-left">
-          <span className="text-xs text-stone-400 font-medium">Sistem Informasi Akademik</span>
-          <span className="text-sm font-semibold text-stone-700 tracking-wide">
-            {user.role === 'mahasiswa' ? `Semester ${user.semester} • TA ${user.academicYear}` : 'Portal Akademik'}
-          </span>
+          <span className="text-xl font-semibold text-stone-800 tracking-wide">Dashboard</span>
+
         </div>
       </div>
 
       {/* Right side: Notifications & User Profile */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-5">
         {/* Notification Button */}
-        <button className="relative p-2 rounded-xl bg-white hover:bg-stone-50 border border-stone-200 text-stone-500 hover:text-stone-850 transition-colors cursor-pointer">
-          <Bell className="h-5 w-5" />
-          <span className="absolute top-1.5 right-1.5 h-2.5 w-2.5 bg-terracotta-500 rounded-full ring-2 ring-white" />
+        <button className="relative p-1.5 text-stone-500 hover:text-stone-850 hover:bg-stone-50 rounded-xl transition-colors cursor-pointer">
+          <Bell className="h-5.5 w-5.5" />
+          <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-rose-500 text-[9px] font-bold text-white ring-2 ring-[#faf8f6]">
+            3
+          </span>
+        </button>
+
+        {/* Chat Button */}
+        <button className="p-1.5 text-stone-500 hover:text-stone-850 hover:bg-stone-50 rounded-xl transition-colors cursor-pointer">
+          <MessageSquare className="h-5.5 w-5.5" />
+        </button>
+
+        {/* Calendar Button */}
+        <button className="p-1.5 text-stone-500 hover:text-stone-850 hover:bg-stone-50 rounded-xl transition-colors cursor-pointer">
+          <Calendar className="h-5.5 w-5.5" />
         </button>
 
         {/* User Dropdown */}
-        <div className="relative">
+        <div className="relative flex items-center">
           <button
             onClick={() => setShowDropdown(!showDropdown)}
-            className="flex items-center gap-3 p-1.5 pr-3.5 rounded-xl bg-white hover:bg-stone-50 border border-stone-200 transition-all duration-200 cursor-pointer"
+            className="flex items-center gap-2.5 p-1 rounded-xl hover:bg-stone-50 transition-all duration-200 cursor-pointer"
           >
-            <img
-              src={user.avatar}
-              alt={user.name}
-              className="h-8 w-8 rounded-lg object-cover ring-1 ring-stone-200"
-            />
+            <div className="relative">
+              <img
+                src={user.avatar}
+                alt={user.name}
+                className="h-9 w-9 rounded-full object-cover ring-1 ring-stone-200"
+              />
+              <span className="absolute bottom-0 right-0 h-2.5 w-2.5 bg-emerald-500 rounded-full ring-2 ring-[#faf8f6]" />
+            </div>
             <div className="hidden md:flex flex-col text-left">
-              <span className="text-xs font-bold text-stone-800 leading-none mb-1">{user.name}</span>
-              <span className="text-[10px] text-stone-450 font-medium leading-none">
-                {user.role === 'mahasiswa' ? user.nim : user.role === 'dosen' ? user.nidn : 'Administrator'}
+              <span className="text-xs font-bold text-stone-800 leading-none">
+                {user.role === 'mahasiswa' ? `Hallo, ${user.name}` : user.name}
+              </span>
+              <span className="text-[10px] text-stone-500 font-semibold leading-none mt-1.5 flex items-center gap-1">
+                {user.role === 'mahasiswa' ? 'Mahasiswa' : user.role === 'dosen' ? 'Dosen' : 'Admin'}
+                <ChevronDown className="h-3 w-3 text-stone-400" />
               </span>
             </div>
           </button>
@@ -78,9 +94,9 @@ export const Navbar = ({ onToggleSidebar }) => {
             <>
               {/* Overlay to close */}
               <div className="fixed inset-0 z-40" onClick={() => setShowDropdown(false)} />
-              
+
               {/* Dropdown Menu */}
-              <div className="absolute right-0 mt-2.5 w-56 rounded-xl bg-white border border-stone-200 shadow-xl py-2 z-50 animate-fade-in" style={{ animationDuration: '0.15s' }}>
+              <div className="absolute right-0 top-full mt-2 w-48 rounded-xl bg-white border border-stone-200 shadow-lg py-1 z-50 animate-fade-in" style={{ animationDuration: '0.15s' }}>
                 <div className="px-4 py-3 border-b border-stone-100 text-left">
                   <p className="text-xs text-stone-400 font-medium">Masuk Sebagai</p>
                   <p className="text-sm font-bold text-stone-800 mt-0.5 truncate">{user.name}</p>
@@ -93,11 +109,11 @@ export const Navbar = ({ onToggleSidebar }) => {
                 </div>
 
                 <div className="p-1">
-                  <button 
+                  <button
                     onClick={logout}
                     className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-rose-600 hover:bg-rose-50 hover:text-rose-700 rounded-lg transition-colors text-left cursor-pointer"
                   >
-                    <LogOut className="h-4.5 w-4.5" />
+                    <LogOut className="h-4 w-4" />
                     Keluar Sesi
                   </button>
                 </div>

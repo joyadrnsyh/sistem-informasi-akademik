@@ -1,19 +1,24 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { 
-  LayoutDashboard, 
-  Users, 
-  Calendar, 
-  BookOpen, 
-  GraduationCap, 
-  CreditCard, 
-  UserCheck, 
-  FileText, 
-  Settings, 
-  LogOut, 
+import logoUniv from '../../assets/logo_univ.png';
+import {
+  LayoutDashboard,
+  Users,
+  Calendar,
+  BookOpen,
+  GraduationCap,
+  CreditCard,
+  UserCheck,
+  FileText,
+  Settings,
+  LogOut,
   X,
-  Award
+  Award,
+  ChevronRight,
+  BarChart3,
+  Headphones,
+  FolderOpen
 } from 'lucide-react';
 
 export const Sidebar = ({ isOpen, onClose }) => {
@@ -42,10 +47,15 @@ export const Sidebar = ({ isOpen, onClose }) => {
       case 'mahasiswa':
         return [
           { path: '/mahasiswa', label: 'Dashboard', icon: LayoutDashboard },
-          { path: '/mahasiswa/krs', label: 'Rencana Studi (KRS)', icon: BookOpen },
-          { path: '/mahasiswa/khs', label: 'Hasil Studi (KHS)', icon: Award },
-          { path: '/mahasiswa/ukt', label: 'Tagihan UKT', icon: CreditCard },
-          { path: '/mahasiswa/profile', label: 'Profil Saya', icon: FileText },
+          { path: '#akademik', label: 'Akademik', icon: GraduationCap, hasChevron: true },
+          { path: '/mahasiswa/krs', label: 'KRS', icon: FileText },
+          { path: '#perkuliahan', label: 'Perkuliahan', icon: BookOpen },
+          { path: '/mahasiswa/khs', label: 'Nilai', icon: BarChart3 },
+          { path: '/mahasiswa/ukt', label: 'Pembayaran', icon: CreditCard },
+          { path: '#kemahasiswaan', label: 'Kemahasiswaan', icon: Users, hasChevron: true },
+          { path: '#layanan', label: 'Layanan', icon: Headphones },
+          { path: '#referensi', label: 'Referensi', icon: FolderOpen, hasChevron: true },
+          { path: '#pengaturan', label: 'Pengaturan', icon: Settings },
         ];
       default:
         return [];
@@ -58,44 +68,64 @@ export const Sidebar = ({ isOpen, onClose }) => {
     <>
       {/* Mobile Sidebar Backdrop Overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-stone-900/40 backdrop-blur-xs lg:hidden"
           onClick={onClose}
         />
       )}
 
       {/* Sidebar Container */}
-      <aside 
-        className={`fixed inset-y-0 left-0 z-40 flex w-68 flex-col bg-white border-r border-stone-200 transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 flex w-68 flex-col bg-[#0b47a6] transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
       >
         {/* Header (Logo & Brand) */}
-        <div className="flex h-16 items-center justify-between px-6 border-b border-stone-100">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-terracotta-600 to-terracotta-400 text-white font-bold text-lg shadow-lg shadow-terracotta-500/15">
-              U
+        <div className="flex min-h-[4.5rem] items-center justify-between px-8 py-8 border-b border-white/10">
+          <div className="flex flex-col gap-2 text-left">
+            <div className="flex items-center gap-2.5">
+              <img src={logoUniv} alt="Logo" className="h-10 w-10 object-contain" />
+              <div className="flex flex-col text-left">
+                <span className="font-bold text-sm text-white tracking-wider uppercase font-sans leading-tight">UNIVERSITAS</span>
+                <span className="font-bold text-sm text-white tracking-wider uppercase font-sans leading-tight">NUSANTARA</span>
+              </div>
             </div>
-            <div className="flex flex-col text-left">
-              <span className="font-bold text-sm text-stone-850 tracking-wider uppercase font-sans">UNIVERSITAS</span>
-              <span className="text-[10px] text-terracotta-500 font-semibold leading-none tracking-widest mt-0.5">SIA PORTAL</span>
-            </div>
+            <span className="text-[12px] text-white/80 font-semibold leading-none pl-1 mt-1">Sistem Informasi Akademik</span>
           </div>
-          <button 
-            onClick={onClose} 
-            className="p-1 rounded-lg text-stone-400 hover:bg-stone-100 hover:text-stone-750 cursor-pointer"
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg text-white/70 hover:bg-white/10 hover:text-white lg:hidden cursor-pointer"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex-1 space-y-1.5 px-4 py-6 overflow-y-auto">
-          <p className="px-3 mb-2 text-[10px] font-bold text-stone-400 uppercase tracking-widest text-left">Menu Navigasi</p>
-          {navLinks.map((link) => {
+        <nav className="flex-1 space-y-1 px-4 py-4 overflow-y-auto no-scrollbar">
+          {navLinks.map((link, idx) => {
             const Icon = link.icon;
-            const isActive = location.pathname === link.path;
-            
+            const isHash = link.path.startsWith('#');
+            const isActive = isHash ? false : (location.pathname === link.path || (link.path === '/mahasiswa' && location.pathname === '/mahasiswa/profile'));
+
+            const content = (
+              <>
+                <Icon className={`h-5 w-5 flex-shrink-0 transition-transform group-hover:scale-105 duration-200 ${isActive ? 'text-white' : 'text-white/80 group-hover:text-white'}`} />
+                <span className="truncate flex-1 text-left">{link.label}</span>
+                {link.hasChevron && <ChevronRight className="h-4 w-4 text-white/50 group-hover:text-white transition-colors" />}
+              </>
+            );
+
+            if (isHash) {
+              return (
+                <button
+                  key={idx}
+                  type="button"
+                  className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-white/85 hover:bg-white/10 hover:text-white transition-all duration-200 group cursor-pointer"
+                >
+                  {content}
+                </button>
+              );
+            }
+
             return (
               <NavLink
                 key={link.path}
@@ -103,29 +133,94 @@ export const Sidebar = ({ isOpen, onClose }) => {
                 onClick={() => {
                   if (window.innerWidth < 1024) onClose();
                 }}
-                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${
-                  isActive 
-                    ? 'bg-terracotta-600 text-white shadow-lg shadow-terracotta-500/15' 
-                    : 'text-stone-600 hover:bg-stone-50 hover:text-stone-900'
-                }`}
+                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${isActive
+                  ? 'bg-[#1d6cf0] text-white shadow-md shadow-blue-500/15'
+                  : 'text-white/85 hover:bg-white/10 hover:text-white'
+                  }`}
               >
-                <Icon className={`h-5 w-5 flex-shrink-0 transition-transform group-hover:scale-105 duration-200 ${isActive ? 'text-white' : 'text-stone-400 group-hover:text-stone-500'}`} />
-                <span className="truncate">{link.label}</span>
+                {content}
               </NavLink>
             );
           })}
         </nav>
 
-        {/* Footer (Logout) */}
-        <div className="p-4 border-t border-stone-100 bg-stone-50/50">
-          <button
-            onClick={logout}
-            className="flex w-full items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-rose-600 hover:bg-rose-50 hover:text-rose-700 transition-colors cursor-pointer"
-          >
-            <LogOut className="h-5 w-5 flex-shrink-0" />
-            <span>Keluar Sistem</span>
-          </button>
-        </div>
+        {/* Sidebar Footer Banner (Only for Mahasiswa as shown in screenshot) */}
+        {user.role === 'mahasiswa' ? (
+          <div className="p-4 mt-auto">
+            <div className="bg-gradient-to-br from-[#1553c0] to-[#0d3aa9] rounded-2xl p-4 text-left relative overflow-hidden shadow-inner">
+              <h5 className="text-[12px] font-bold text-white leading-tight">
+                Portal Terpadu untuk Mahasiswa Hebat
+              </h5>
+              <p className="text-[10px] text-white/70 mt-1 leading-snug">
+                Satu akses untuk semua kebutuhan akademik.
+              </p>
+
+              {/* Campus SVG Illustration */}
+              <div className="mt-3 flex justify-center">
+                <svg viewBox="0 0 160 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto max-w-[140px]">
+                  {/* Sky/Moon */}
+                  <circle cx="130" cy="20" r="10" fill="#3b82f6" opacity="0.3" />
+                  <circle cx="133" cy="18" r="6" fill="#0d3aa9" />
+
+                  {/* Clouds */}
+                  <path d="M10 25 C15 20, 25 20, 30 25 C35 23, 42 23, 45 27 C48 27, 50 31, 48 34 L10 34 Z" fill="#ffffff" opacity="0.2" />
+
+                  {/* Building Shadows & Ground */}
+                  <rect x="35" y="35" width="90" height="35" rx="2" fill="#0f2b6e" />
+                  <rect x="42" y="30" width="76" height="40" rx="3" fill="#1e40af" />
+
+                  {/* Main Tower */}
+                  <rect x="70" y="10" width="20" height="25" fill="#2563eb" />
+                  <polygon points="65,10 80,0 95,10" fill="#1d4ed8" />
+                  <circle cx="80" cy="17" r="3" fill="#ffffff" />
+                  <circle cx="80" cy="17" r="1.5" fill="#2563eb" />
+
+                  {/* Windows */}
+                  <rect x="49" y="37" width="5" height="7" rx="1" fill="#93c5fd" />
+                  <rect x="58" y="37" width="5" height="7" rx="1" fill="#93c5fd" />
+                  <rect x="97" y="37" width="5" height="7" rx="1" fill="#93c5fd" />
+                  <rect x="106" y="37" width="5" height="7" rx="1" fill="#93c5fd" />
+                  <rect x="49" y="48" width="5" height="7" rx="1" fill="#93c5fd" />
+                  <rect x="58" y="48" width="5" height="7" rx="1" fill="#93c5fd" />
+                  <rect x="97" y="48" width="5" height="7" rx="1" fill="#93c5fd" />
+                  <rect x="106" y="48" width="5" height="7" rx="1" fill="#93c5fd" />
+
+                  {/* Main Gate */}
+                  <path d="M73 70 L73 50 C73 47, 87 47, 87 50 L87 70 Z" fill="#0d3aa9" />
+
+                  {/* Trees */}
+                  <circle cx="30" cy="55" r="8" fill="#10b981" />
+                  <circle cx="22" cy="60" r="6" fill="#047857" />
+                  <rect x="28" y="60" width="3" height="10" fill="#78350f" />
+                  <rect x="20" y="64" width="2" height="6" fill="#78350f" />
+
+                  <circle cx="130" cy="55" r="8" fill="#10b981" />
+                  <circle cx="138" cy="60" r="6" fill="#047857" />
+                  <rect x="128" y="60" width="3" height="10" fill="#78350f" />
+                  <rect x="136" y="64" width="2" height="6" fill="#78350f" />
+                </svg>
+              </div>
+
+              {/* Slider Dots */}
+              <div className="flex items-center justify-center gap-1.5 mt-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="p-4 mt-auto">
+            <button
+              onClick={logout}
+              className="flex w-full items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-white hover:bg-rose-50 hover:text-rose-700 transition-colors cursor-pointer"
+            >
+              <LogOut className="h-5 w-5 flex-shrink-0" />
+              <span>Keluar Sistem</span>
+            </button>
+          </div>
+        )}
       </aside>
     </>
   );

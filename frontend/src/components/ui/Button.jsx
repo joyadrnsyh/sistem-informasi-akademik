@@ -28,12 +28,12 @@ export const Button = ({
 
   // Variant classes
   const variantClasses = {
-    primary: 'bg-terracotta-600 hover:bg-terracotta-500 text-white shadow-lg shadow-terracotta-600/15 focus:ring-terracotta-500 active:scale-[0.98]',
+    primary: 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/15 focus:ring-indigo-500 active:scale-[0.98]',
     secondary: 'bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-200/80 focus:ring-stone-500 active:scale-[0.98]',
     success: 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/10 focus:ring-emerald-500 active:scale-[0.98]',
     danger: 'bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-600/10 focus:ring-rose-500 active:scale-[0.98]',
-    outline: 'bg-transparent hover:bg-stone-50 text-stone-700 border border-stone-300 hover:border-stone-400 focus:ring-terracotta-500 active:scale-[0.98]',
-    ghost: 'bg-transparent hover:bg-stone-100 text-stone-550 hover:text-stone-800 focus:ring-terracotta-500',
+    outline: 'bg-transparent hover:bg-stone-50 text-stone-700 border border-stone-300 hover:border-stone-400 focus:ring-indigo-500 active:scale-[0.98]',
+    ghost: 'bg-transparent hover:bg-stone-100 text-stone-550 hover:text-stone-800 focus:ring-indigo-500',
   };
 
   return (

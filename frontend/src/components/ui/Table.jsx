@@ -50,7 +50,7 @@ export const Table = ({
             data.map((row, rIdx) => (
               <tr
                 key={row.id || rIdx}
-                className="hover:bg-terracotta-50/20 transition-colors duration-150"
+                className="hover:bg-indigo-50/20 transition-colors duration-150"
               >
                 {columns.map((col, cIdx) => {
                   const cellValue = row[col.key];

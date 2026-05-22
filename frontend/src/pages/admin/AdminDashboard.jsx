@@ -207,7 +207,7 @@ export const AdminDashboard = () => {
                   <TrendingUp className="h-3 w-3" /> +12% semester ini
                 </span>
               </div>
-              <div className="p-3 bg-terracotta-500/10 rounded-xl text-terracotta-600">
+              <div className="p-3 bg-indigo-500/10 rounded-xl text-indigo-600">
                 <Users className="h-6 w-6" />
               </div>
             </div>
@@ -299,7 +299,7 @@ export const AdminDashboard = () => {
                 placeholder="Cari user berdasarkan nama atau email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-white border border-stone-200 rounded-xl text-sm text-stone-850 placeholder-stone-400 focus:outline-none focus:border-terracotta-500"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-stone-200 rounded-xl text-sm text-stone-850 placeholder-stone-400 focus:outline-none focus:border-indigo-500"
               />
             </div>
             <Button
@@ -317,7 +317,7 @@ export const AdminDashboard = () => {
               {
                 header: 'Nama Lengkap', key: 'name', render: (val, row) => (
                   <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded bg-terracotta-50 text-terracotta-600 font-bold flex items-center justify-center text-sm uppercase border border-terracotta-100/50">
+                    <div className="h-8 w-8 rounded bg-indigo-50 text-indigo-600 font-bold flex items-center justify-center text-sm uppercase border border-indigo-100/50">
                       {val.charAt(0)}
                     </div>
                     <div>
@@ -329,7 +329,7 @@ export const AdminDashboard = () => {
               },
               {
                 header: 'Peran', key: 'role', render: (val) => (
-                  <span className={`inline-flex px-2 py-0.5 text-[10px] font-semibold border rounded-md uppercase tracking-wider ${val === 'dosen' ? 'bg-amber-50 text-amber-700 border-amber-200/50' : 'bg-terracotta-50 text-terracotta-700 border-terracotta-200/50'
+                  <span className={`inline-flex px-2 py-0.5 text-[10px] font-semibold border rounded-md uppercase tracking-wider ${val === 'dosen' ? 'bg-amber-50 text-amber-700 border-amber-200/50' : 'bg-indigo-50 text-indigo-700 border-indigo-200/50'
                     }`}>
                     {val}
                   </span>

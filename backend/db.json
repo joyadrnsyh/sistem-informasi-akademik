@@ -33,7 +33,7 @@
     },
     {
       "id": "mhs-204",
-      "name": "Reza Hendrawan",
+      "name": "Andi Pratama",
       "email": "mhs@sia.ac.id",
       "password": "mhs123",
       "role": "mahasiswa",
@@ -42,10 +42,10 @@
       "faculty": "Fakultas Ilmu Komputer",
       "department": "Teknik Informatika",
       "semester": 4,
-      "academicYear": "2025/2026 Ganjil",
-      "ips": 3.82,
-      "ipk": 3.65,
-      "sksTaken": 84
+      "academicYear": "2023/2024 Genap",
+      "ips": 3.60,
+      "ipk": 3.72,
+      "sksTaken": 45
     },
     {
       "id": "mhs-205",
@@ -204,6 +204,26 @@
     {
       "studentId": "mhs-204",
       "courseId": "MK-2201"
+    },
+    {
+      "studentId": "mhs-1779469073459",
+      "courseId": "MK-2201"
+    },
+    {
+      "studentId": "mhs-1779469073459",
+      "courseId": "MK-2203"
+    },
+    {
+      "studentId": "mhs-1779469073459",
+      "courseId": "MK-2202"
+    },
+    {
+      "studentId": "mhs-1779469073459",
+      "courseId": "MK-2205"
+    },
+    {
+      "studentId": "mhs-1779469073459",
+      "courseId": "MK-2204"
     }
   ],
   "khsRecords": [
@@ -260,7 +280,7 @@
     {
       "courseId": "MK-101",
       "studentId": "mhs-204",
-      "name": "Reza Hendrawan",
+      "name": "Andi Pratama",
       "tugas": 85,
       "uts": 80,
       "uas": 88
@@ -292,7 +312,7 @@
     {
       "courseId": "MK-103",
       "studentId": "mhs-204",
-      "name": "Reza Hendrawan",
+      "name": "Andi Pratama",
       "tugas": 80,
       "uts": 78,
       "uas": 82
@@ -309,8 +329,8 @@
   "uktBills": [
     {
       "studentId": "mhs-204",
-      "amount": 5500000,
-      "dueDate": "2026-06-15",
+      "amount": 2450000,
+      "dueDate": "2024-06-10",
       "status": "BELUM BAYAR",
       "vaNumber": "9880422010100450",
       "bank": "Bank Mandiri"

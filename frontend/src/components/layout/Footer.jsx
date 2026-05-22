@@ -1,17 +1,13 @@
 import React from 'react';
 
 export const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="w-full py-4 px-6 border-t border-stone-200/80 bg-white/40 text-stone-550 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 mt-auto">
+    <footer className="w-full py-4 px-6 border-t border-stone-200/80 bg-white/40 text-stone-500 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 mt-auto">
       <div>
-        &copy; {currentYear} Universitas SIA. All rights reserved.
+        &copy; 2024 Universitas Nusantara. All rights reserved.
       </div>
-      <div className="flex items-center gap-4">
-        <span>Sistem Informasi Akademik v2.1.0</span>
-        <span className="h-3 w-px bg-stone-200" />
-        <span>Bantuan & Support</span>
+      <div className="flex items-center gap-4 font-medium">
+        <span>SIA v2.1.0</span>
       </div>
     </footer>
   );
