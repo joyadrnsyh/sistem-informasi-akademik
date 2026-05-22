@@ -41,7 +41,7 @@ export const ForgotPassword = () => {
         {submitted ? (
           // Success State
           <div className="text-center animate-fade-in">
-            <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-250/50 mb-4">
+            <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/50 mb-4">
               <CheckCircle2 className="h-6 w-6" />
             </div>
             <h3 className="text-lg font-semibold text-stone-800">Email Terkirim!</h3>
@@ -60,7 +60,7 @@ export const ForgotPassword = () => {
         ) : (
           // Form State
           <form onSubmit={handleSubmit}>
-            <p className="text-xs text-stone-550 mb-5 leading-relaxed">
+            <p className="text-xs text-stone-500 mb-5 leading-relaxed">
               Masukkan alamat email institusi Anda. Kami akan mengirimkan tautan verifikasi untuk membuat kata sandi baru.
             </p>
             

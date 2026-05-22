@@ -81,7 +81,7 @@ const Unauthorized = () => {
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-700 border border-rose-200/50 mb-4 text-xl font-bold">
           !
         </div>
-        <h2 className="text-lg font-bold text-stone-850">Akses Ditolak</h2>
+        <h2 className="text-lg font-bold text-stone-800">Akses Ditolak</h2>
         <p className="text-xs text-stone-500 mt-2 leading-relaxed">
           Akun Anda tidak memiliki wewenang untuk membuka halaman ini.
         </p>

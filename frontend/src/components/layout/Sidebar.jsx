@@ -76,7 +76,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-68 flex-col bg-[#0b47a6] transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed inset-y-0 left-0 z-40 flex w-68 flex-col bg-[#1e1b4b] transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
       >
         {/* Header (Logo & Brand) */}
@@ -134,7 +134,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
                   if (window.innerWidth < 1024) onClose();
                 }}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${isActive
-                  ? 'bg-[#1d6cf0] text-white shadow-md shadow-blue-500/15'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/15'
                   : 'text-white/85 hover:bg-white/10 hover:text-white'
                   }`}
               >
@@ -147,7 +147,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
         {/* Sidebar Footer Banner (Only for Mahasiswa as shown in screenshot) */}
         {user.role === 'mahasiswa' ? (
           <div className="p-4 mt-auto">
-            <div className="bg-gradient-to-br from-[#1553c0] to-[#0d3aa9] rounded-2xl p-4 text-left relative overflow-hidden shadow-inner">
+            <div className="bg-gradient-to-br from-[#312e81] to-[#1e1b4b] rounded-2xl p-4 text-left relative overflow-hidden shadow-inner">
               <h5 className="text-[12px] font-bold text-white leading-tight">
                 Portal Terpadu untuk Mahasiswa Hebat
               </h5>
@@ -159,34 +159,34 @@ export const Sidebar = ({ isOpen, onClose }) => {
               <div className="mt-3 flex justify-center">
                 <svg viewBox="0 0 160 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto max-w-[140px]">
                   {/* Sky/Moon */}
-                  <circle cx="130" cy="20" r="10" fill="#3b82f6" opacity="0.3" />
-                  <circle cx="133" cy="18" r="6" fill="#0d3aa9" />
+                  <circle cx="130" cy="20" r="10" fill="#818cf8" opacity="0.3" />
+                  <circle cx="133" cy="18" r="6" fill="#1e1b4b" />
 
                   {/* Clouds */}
                   <path d="M10 25 C15 20, 25 20, 30 25 C35 23, 42 23, 45 27 C48 27, 50 31, 48 34 L10 34 Z" fill="#ffffff" opacity="0.2" />
 
                   {/* Building Shadows & Ground */}
-                  <rect x="35" y="35" width="90" height="35" rx="2" fill="#0f2b6e" />
-                  <rect x="42" y="30" width="76" height="40" rx="3" fill="#1e40af" />
+                  <rect x="35" y="35" width="90" height="35" rx="2" fill="#111827" />
+                  <rect x="42" y="30" width="76" height="40" rx="3" fill="#312e81" />
 
                   {/* Main Tower */}
-                  <rect x="70" y="10" width="20" height="25" fill="#2563eb" />
-                  <polygon points="65,10 80,0 95,10" fill="#1d4ed8" />
+                  <rect x="70" y="10" width="20" height="25" fill="#4f46e5" />
+                  <polygon points="65,10 80,0 95,10" fill="#4338ca" />
                   <circle cx="80" cy="17" r="3" fill="#ffffff" />
-                  <circle cx="80" cy="17" r="1.5" fill="#2563eb" />
+                  <circle cx="80" cy="17" r="1.5" fill="#4f46e5" />
 
                   {/* Windows */}
-                  <rect x="49" y="37" width="5" height="7" rx="1" fill="#93c5fd" />
-                  <rect x="58" y="37" width="5" height="7" rx="1" fill="#93c5fd" />
-                  <rect x="97" y="37" width="5" height="7" rx="1" fill="#93c5fd" />
-                  <rect x="106" y="37" width="5" height="7" rx="1" fill="#93c5fd" />
-                  <rect x="49" y="48" width="5" height="7" rx="1" fill="#93c5fd" />
-                  <rect x="58" y="48" width="5" height="7" rx="1" fill="#93c5fd" />
-                  <rect x="97" y="48" width="5" height="7" rx="1" fill="#93c5fd" />
-                  <rect x="106" y="48" width="5" height="7" rx="1" fill="#93c5fd" />
+                  <rect x="49" y="37" width="5" height="7" rx="1" fill="#c7d2fe" />
+                  <rect x="58" y="37" width="5" height="7" rx="1" fill="#c7d2fe" />
+                  <rect x="97" y="37" width="5" height="7" rx="1" fill="#c7d2fe" />
+                  <rect x="106" y="37" width="5" height="7" rx="1" fill="#c7d2fe" />
+                  <rect x="49" y="48" width="5" height="7" rx="1" fill="#c7d2fe" />
+                  <rect x="58" y="48" width="5" height="7" rx="1" fill="#c7d2fe" />
+                  <rect x="97" y="48" width="5" height="7" rx="1" fill="#c7d2fe" />
+                  <rect x="106" y="48" width="5" height="7" rx="1" fill="#c7d2fe" />
 
                   {/* Main Gate */}
-                  <path d="M73 70 L73 50 C73 47, 87 47, 87 50 L87 70 Z" fill="#0d3aa9" />
+                  <path d="M73 70 L73 50 C73 47, 87 47, 87 50 L87 70 Z" fill="#1e1b4b" />
 
                   {/* Trees */}
                   <circle cx="30" cy="55" r="8" fill="#10b981" />

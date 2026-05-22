@@ -11,12 +11,21 @@ export const StatsCard = ({
   subLabelPosition = 'inline', // 'inline' | 'block'
   iconBgClassName = 'bg-indigo-50 text-indigo-600',
   iconClassName = '',
+  variant = 'default', // 'default' | 'flat' | 'outline'
   className = '',
   ...props
 }) => {
+  const variantClasses = {
+    default: 'bg-white border border-stone-200/80 shadow-xs',
+    flat: 'bg-stone-50/80 border border-transparent shadow-none',
+    outline: 'bg-transparent border border-stone-200/60 shadow-none'
+  };
+
+  const selectedVariant = variantClasses[variant] || variantClasses.default;
+
   return (
-    <div className={`bg-white border border-stone-200/80 p-5 rounded-2xl flex items-center gap-4 shadow-xs text-left ${className}`} {...props}>
-      <div className={`p-3 rounded-2xl flex-shrink-0 ${iconBgClassName}`}>
+    <div className={`p-5 rounded-lg border border-stone-100 flex items-center gap-4 text-left ${selectedVariant} ${className}`} {...props}>
+      <div className={`p-3 rounded-lg flex-shrink-0 ${iconBgClassName}`}>
         {Icon && <Icon className={`h-6 w-6 ${iconClassName}`} />}
       </div>
       <div className="text-left min-w-0 flex-1">

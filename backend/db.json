@@ -43,9 +43,9 @@
       "department": "Teknik Informatika",
       "semester": 4,
       "academicYear": "2023/2024 Genap",
-      "ips": 3.60,
-      "ipk": 3.72,
-      "sksTaken": 45
+      "ips": 3.52,
+      "ipk": 3.52,
+      "sksTaken": 21
     },
     {
       "id": "mhs-205",
@@ -59,9 +59,9 @@
       "department": "Sistem Informasi",
       "semester": 4,
       "academicYear": "2025/2026 Ganjil",
-      "ips": 3.75,
-      "ipk": 3.58,
-      "sksTaken": 84
+      "ips": 4,
+      "ipk": 4,
+      "sksTaken": 6
     },
     {
       "id": "mhs-1779469073459",
@@ -202,10 +202,6 @@
   ],
   "enrolledKrs": [
     {
-      "studentId": "mhs-204",
-      "courseId": "MK-2201"
-    },
-    {
       "studentId": "mhs-1779469073459",
       "courseId": "MK-2201"
     },
@@ -224,6 +220,14 @@
     {
       "studentId": "mhs-1779469073459",
       "courseId": "MK-2204"
+    },
+    {
+      "studentId": "mhs-204",
+      "courseId": "MK-2204"
+    },
+    {
+      "studentId": "mhs-204",
+      "courseId": "MK-2203"
     }
   ],
   "khsRecords": [
@@ -274,6 +278,54 @@
       "sks": 3,
       "grade": "A-",
       "score": 88
+    },
+    {
+      "studentId": "mhs-204",
+      "code": "IF2204",
+      "name": "Pemrograman Web",
+      "sks": 3,
+      "grade": "A",
+      "score": 85
+    },
+    {
+      "studentId": "mhs-205",
+      "code": "IF2204",
+      "name": "Pemrograman Web",
+      "sks": 3,
+      "grade": "A",
+      "score": 89
+    },
+    {
+      "studentId": "mhs-201",
+      "code": "IF2204",
+      "name": "Pemrograman Web",
+      "sks": 3,
+      "grade": "C",
+      "score": 71
+    },
+    {
+      "studentId": "mhs-202",
+      "code": "IF2204",
+      "name": "Pemrograman Web",
+      "sks": 3,
+      "grade": "C",
+      "score": 66
+    },
+    {
+      "studentId": "mhs-204",
+      "code": "IF3201",
+      "name": "Kecerdasan Buatan",
+      "sks": 4,
+      "grade": "B",
+      "score": 80
+    },
+    {
+      "studentId": "mhs-201",
+      "code": "IF3201",
+      "name": "Kecerdasan Buatan",
+      "sks": 4,
+      "grade": "B",
+      "score": 76
     }
   ],
   "studentGrades": [
@@ -331,7 +383,7 @@
       "studentId": "mhs-204",
       "amount": 2450000,
       "dueDate": "2024-06-10",
-      "status": "BELUM BAYAR",
+      "status": "LUNAS",
       "vaNumber": "9880422010100450",
       "bank": "Bank Mandiri"
     },
@@ -355,7 +407,7 @@
       "studentId": "mhs-1779469073459",
       "amount": 5500000,
       "dueDate": "2026-06-15",
-      "status": "BELUM BAYAR",
+      "status": "LUNAS",
       "vaNumber": "988042200018107",
       "bank": "Bank Mandiri"
     }

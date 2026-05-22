@@ -10,7 +10,7 @@ export const AnnouncementList = ({ announcements, onViewAll }) => {
       title: 'Pembayaran UKT Semester Genap 2023/2024',
       description: 'Pembayaran dapat dilakukan hingga 10 Juni 2024.',
       date: '20 Mei 2024',
-      badgeBg: 'bg-blue-50 text-blue-600'
+      badgeBg: 'bg-indigo-50 text-indigo-600'
     },
     {
       title: 'Pengisian KRS Semester Genap 2023/2024',
@@ -31,10 +31,10 @@ export const AnnouncementList = ({ announcements, onViewAll }) => {
   return (
     <div className="bg-white border border-stone-200/80 rounded-2xl p-5 shadow-xs flex flex-col text-left h-full">
       <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-        <h3 className="text-sm font-bold text-stone-850">Pengumuman Terbaru</h3>
+        <h3 className="text-sm font-bold text-stone-800">Pengumuman Terbaru</h3>
         <button 
           onClick={onViewAll} 
-          className="text-[11px] text-[#1d6cf0] hover:underline font-bold cursor-pointer"
+          className="text-[11px] text-indigo-600 hover:underline font-bold cursor-pointer"
         >
           Lihat Semua
         </button>

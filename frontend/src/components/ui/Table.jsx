@@ -13,7 +13,7 @@ export const Table = ({
   return (
     <div className={`w-full overflow-x-auto rounded-xl border border-stone-200/85 bg-white/75 backdrop-blur-md ${className}`}>
       <table className="w-full min-w-[640px] border-collapse text-left text-sm text-stone-700">
-        <thead className="bg-stone-50 border-b border-stone-200 text-xs font-semibold uppercase tracking-wider text-stone-550">
+        <thead className="bg-stone-50 border-b border-stone-200 text-xs font-semibold uppercase tracking-wider text-stone-500">
           <tr>
             {columns.map((col, idx) => (
               <th

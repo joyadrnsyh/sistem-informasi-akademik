@@ -10,7 +10,8 @@ import {
   Clock,
   MapPin,
   TrendingUp,
-  Save
+  Save,
+  ChevronDown
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -153,7 +154,7 @@ export const DosenDashboard = () => {
       {/* Header Info */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-stone-850 m-0">Dashboard Dosen</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-stone-800 m-0">Dashboard Dosen</h1>
           <p className="text-sm text-stone-500 mt-1">Selamat datang kembali, <strong>{user?.name}</strong>. Silakan kelola jadwal mengajar dan nilai mahasiswa.</p>
         </div>
       </div>
@@ -213,7 +214,7 @@ export const DosenDashboard = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between border-t border-stone-200/60 pt-3 text-xs text-stone-550 gap-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between border-t border-stone-200/60 pt-3 text-xs text-stone-500 gap-2">
                     <div className="flex items-center gap-1.5">
                       <Clock className="h-4 w-4 text-stone-400" />
                       <span>{sched.day}, {sched.time}</span>
@@ -236,20 +237,25 @@ export const DosenDashboard = () => {
           {/* Selector header */}
           <div className="glass p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="w-full sm:max-w-xs">
-              <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide mb-1.5">Pilih Matakuliah</label>
-              <select
-                value={selectedCourse}
-                onChange={(e) => setSelectedCourse(e.target.value)}
-                className="w-full px-3.5 py-2 bg-white border border-stone-200 rounded-xl text-sm text-stone-800 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-              >
-                {schedules.map(s => (
-                  <option key={s.id} value={s.id}>{s.code} - {s.name} ({s.class})</option>
-                ))}
-              </select>
+              <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-1.5">Pilih Matakuliah</label>
+              <div className="relative w-full">
+                <select
+                  value={selectedCourse}
+                  onChange={(e) => setSelectedCourse(e.target.value)}
+                  className="w-full px-4 py-2.5 bg-stone-50/50 border border-stone-200 rounded-xl text-sm text-stone-850 focus:outline-none focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-200 appearance-none pr-10 cursor-pointer"
+                >
+                  {schedules.map(s => (
+                    <option key={s.id} value={s.id}>{s.code} - {s.name} ({s.class})</option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-stone-400">
+                  <ChevronDown className="h-4.5 w-4.5" />
+                </div>
+              </div>
             </div>
 
             <div className="text-right self-stretch sm:self-center flex flex-col items-end justify-center">
-              <span className="text-xs text-stone-550">Bobot Evaluasi</span>
+              <span className="text-xs text-stone-500">Bobot Evaluasi</span>
               <span className="text-xs text-stone-600 font-semibold mt-0.5">Tugas (30%) • UTS (30%) • UAS (40%)</span>
             </div>
           </div>
@@ -338,7 +344,7 @@ export const DosenDashboard = () => {
       {/* --- PROFILE TAB --- */}
       {activeTab === 'profile' && (
         <div className="glass p-6 rounded-2xl max-w-2xl text-left">
-          <h3 className="font-bold text-stone-850 tracking-wide mb-4">Biodata Pengajar</h3>
+          <h3 className="font-bold text-stone-800 tracking-wide mb-4">Biodata Pengajar</h3>
           <div className="flex flex-col sm:flex-row items-center gap-6 mb-6 pb-6 border-b border-stone-200/60">
             <img
               src={user?.avatar}
@@ -346,7 +352,7 @@ export const DosenDashboard = () => {
               className="h-20 w-20 rounded-2xl object-cover ring-2 ring-stone-200"
             />
             <div>
-              <h4 className="font-bold text-lg text-stone-850">{user?.name}</h4>
+              <h4 className="font-bold text-lg text-stone-800">{user?.name}</h4>
               <p className="text-xs text-stone-500 font-medium mt-1">NIDN: {user?.nidn || 'N/A'}</p>
               <span className="inline-block mt-2 px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200/50 text-[10px] font-bold uppercase tracking-wider">
                 Dosen Pengajar
@@ -356,19 +362,19 @@ export const DosenDashboard = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3.5 text-sm">
             <div className="flex justify-between py-1.5 border-b border-stone-200/60">
-              <span className="text-stone-550">Nama Lengkap</span>
+              <span className="text-stone-500">Nama Lengkap</span>
               <span className="font-medium text-stone-700">{user?.name}</span>
             </div>
             <div className="flex justify-between py-1.5 border-b border-stone-200/60">
-              <span className="text-stone-550">Nomor Induk Dosen (NIDN)</span>
+              <span className="text-stone-500">Nomor Induk Dosen (NIDN)</span>
               <span className="font-medium font-mono text-stone-700">{user?.nidn || 'N/A'}</span>
             </div>
             <div className="flex justify-between py-1.5 border-b border-stone-200/60">
-              <span className="text-stone-550">Alamat Email</span>
+              <span className="text-stone-500">Alamat Email</span>
               <span className="font-medium text-stone-700">{user?.email}</span>
             </div>
             <div className="flex justify-between py-1.5 border-b border-stone-200/60">
-              <span className="text-stone-550">Fakultas / Departemen</span>
+              <span className="text-stone-500">Fakultas / Departemen</span>
               <span className="font-medium text-stone-700">{user?.faculty || 'N/A'} / {user?.department || 'N/A'}</span>
             </div>
           </div>

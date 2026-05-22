@@ -48,7 +48,7 @@ export const Navbar = ({ onToggleSidebar }) => {
       {/* Right side: Notifications & User Profile */}
       <div className="flex items-center gap-5">
         {/* Notification Button */}
-        <button className="relative p-1.5 text-stone-500 hover:text-stone-850 hover:bg-stone-50 rounded-xl transition-colors cursor-pointer">
+        <button className="relative p-1.5 text-stone-500 hover:text-stone-800 hover:bg-stone-50 rounded-xl transition-colors cursor-pointer">
           <Bell className="h-5.5 w-5.5" />
           <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-rose-500 text-[9px] font-bold text-white ring-2 ring-[#faf8f6]">
             3
@@ -56,12 +56,12 @@ export const Navbar = ({ onToggleSidebar }) => {
         </button>
 
         {/* Chat Button */}
-        <button className="p-1.5 text-stone-500 hover:text-stone-850 hover:bg-stone-50 rounded-xl transition-colors cursor-pointer">
+        <button className="p-1.5 text-stone-500 hover:text-stone-800 hover:bg-stone-50 rounded-xl transition-colors cursor-pointer">
           <MessageSquare className="h-5.5 w-5.5" />
         </button>
 
         {/* Calendar Button */}
-        <button className="p-1.5 text-stone-500 hover:text-stone-850 hover:bg-stone-50 rounded-xl transition-colors cursor-pointer">
+        <button className="p-1.5 text-stone-500 hover:text-stone-800 hover:bg-stone-50 rounded-xl transition-colors cursor-pointer">
           <Calendar className="h-5.5 w-5.5" />
         </button>
 

@@ -17,7 +17,7 @@ export const Button = ({
   ...props
 }) => {
   // Base classes
-  const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white rounded-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
   
   // Size classes
   const sizeClasses = {
@@ -33,7 +33,7 @@ export const Button = ({
     success: 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/10 focus:ring-emerald-500 active:scale-[0.98]',
     danger: 'bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-600/10 focus:ring-rose-500 active:scale-[0.98]',
     outline: 'bg-transparent hover:bg-stone-50 text-stone-700 border border-stone-300 hover:border-stone-400 focus:ring-indigo-500 active:scale-[0.98]',
-    ghost: 'bg-transparent hover:bg-stone-100 text-stone-550 hover:text-stone-800 focus:ring-indigo-500',
+    ghost: 'bg-transparent hover:bg-stone-100 text-stone-500 hover:text-stone-800 focus:ring-indigo-500',
   };
 
   return (
