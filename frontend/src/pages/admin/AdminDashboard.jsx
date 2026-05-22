@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { 
-  Users, 
-  BookOpen, 
-  Calendar, 
-  Plus, 
-  Trash2, 
-  Search, 
-  TrendingUp, 
-  UserCheck, 
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  Users,
+  BookOpen,
+  Calendar,
+  Plus,
+  Trash2,
+  Search,
+  TrendingUp,
+  UserCheck,
   FileText,
   Clock,
   MapPin,
@@ -18,30 +19,58 @@ import { Button } from '../../components/ui/Button';
 import { Table } from '../../components/ui/Table';
 import { Modal } from '../../components/ui/Modal';
 import { InputForm } from '../../components/ui/InputForm';
+import api from '../../services/api';
 
 export const AdminDashboard = () => {
-  const [activeTab, setActiveTab] = useState('overview');
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  // --- MOCK DATABASE WITH STATE FOR CRUD ---
-  const [users, setUsers] = useState([
-    { id: '1', name: 'Dr. Ahmad Fauzi, M.T.', email: 'dosen@sia.ac.id', role: 'dosen', detail: 'NIDN: 0420088501 • Informatika' },
-    { id: '2', name: 'Reza Hendrawan', email: 'mhs@sia.ac.id', role: 'mahasiswa', detail: 'NIM: 2201010045 • Informatika' },
-    { id: '3', name: 'Lia Safitri', email: 'lia.safitri@sia.ac.id', role: 'mahasiswa', detail: 'NIM: 2201010080 • Sistem Informasi' },
-    { id: '4', name: 'Dr. Retno Wahyuni', email: 'retno.w@sia.ac.id', role: 'dosen', detail: 'NIDN: 0412097802 • Sistem Informasi' },
-  ]);
+  // Determine active tab from URL path
+  const getActiveTab = () => {
+    const path = location.pathname;
+    if (path.endsWith('/users')) return 'users';
+    if (path.endsWith('/courses')) return 'courses';
+    if (path.endsWith('/schedules')) return 'schedules';
+    return 'overview';
+  };
+  const activeTab = getActiveTab();
 
-  const [courses, setCourses] = useState([
-    { id: 'MK-101', name: 'Pemrograman Web', sks: 3, semester: 4, code: 'IF2204' },
-    { id: 'MK-102', name: 'Basis Data Lanjut', sks: 3, semester: 4, code: 'IF2205' },
-    { id: 'MK-103', name: 'Kecerdasan Buatan', sks: 4, semester: 6, code: 'IF3201' },
-    { id: 'MK-104', name: 'Interaksi Manusia & Komputer', sks: 2, semester: 2, code: 'IF1205' },
-  ]);
+  const setActiveTab = (tab) => {
+    if (tab === 'overview') navigate('/admin');
+    else navigate(`/admin/${tab}`);
+  };
 
-  const [schedules, setSchedules] = useState([
-    { id: 'S-01', courseName: 'Pemrograman Web', lecturer: 'Dr. Ahmad Fauzi, M.T.', day: 'Senin', time: '08:00 - 10:30', room: 'Lab Komputer 3' },
-    { id: 'S-02', courseName: 'Basis Data Lanjut', lecturer: 'Dr. Retno Wahyuni', day: 'Selasa', time: '13:00 - 15:30', room: 'Ruang Teori 204' },
-    { id: 'S-03', courseName: 'Kecerdasan Buatan', lecturer: 'Dr. Ahmad Fauzi, M.T.', day: 'Kamis', time: '10:00 - 12:30', room: 'Ruang Teori 301' },
-  ]);
+  // --- STATE FOR CRUD LOADED FROM API ---
+  const [users, setUsers] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [schedules, setSchedules] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  // Fetch initial data
+  const fetchData = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const [usersRes, coursesRes, schedulesRes] = await Promise.all([
+        api.get('/admin/users'),
+        api.get('/admin/courses'),
+        api.get('/admin/schedules')
+      ]);
+      setUsers(usersRes.data);
+      setCourses(coursesRes.data);
+      setSchedules(schedulesRes.data);
+    } catch (err) {
+      console.error('Error fetching admin data:', err);
+      setError('Gagal memuat data dari server.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   // Search filter
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,127 +81,116 @@ export const AdminDashboard = () => {
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
 
   // Form states
-  const [userForm, setUserForm] = useState({ name: '', email: '', role: 'mahasiswa', number: '' });
+  const [userForm, setUserForm] = useState({ name: '', email: '', password: '', role: 'mahasiswa', number: '' });
   const [courseForm, setCourseForm] = useState({ code: '', name: '', sks: 3, semester: 1 });
   const [scheduleForm, setScheduleForm] = useState({ courseId: '', lecturerId: '', day: 'Senin', time: '', room: '' });
 
   // --- CRUD ACTIONS ---
-  const handleAddUser = (e) => {
+  const handleAddUser = async (e) => {
     e.preventDefault();
-    if (!userForm.name || !userForm.email || !userForm.number) return;
-    
-    const newUser = {
-      id: String(users.length + 1),
-      name: userForm.name,
-      email: userForm.email,
-      role: userForm.role,
-      detail: userForm.role === 'dosen' 
-        ? `NIDN: ${userForm.number} • Teknik Informatika` 
-        : `NIM: ${userForm.number} • Teknik Informatika`
-    };
-    
-    setUsers([...users, newUser]);
-    setUserForm({ name: '', email: '', role: 'mahasiswa', number: '' });
-    setIsUserModalOpen(false);
-  };
+    if (!userForm.name || !userForm.email || !userForm.number || !userForm.password) return;
 
-  const handleDeleteUser = (id) => {
-    if (confirm('Apakah Anda yakin ingin menghapus user ini?')) {
-      setUsers(users.filter(u => u.id !== id));
+    try {
+      const response = await api.post('/admin/users', {
+        name: userForm.name,
+        email: userForm.email,
+        role: userForm.role,
+        password: userForm.password,
+        number: userForm.number
+      });
+      setUsers([...users, response.data]);
+      setUserForm({ name: '', email: '', password: '', role: 'mahasiswa', number: '' });
+      setIsUserModalOpen(false);
+    } catch (err) {
+      alert(err.response?.data?.error || 'Gagal menambahkan user.');
     }
   };
 
-  const handleAddCourse = (e) => {
+  const handleDeleteUser = async (id) => {
+    if (confirm('Apakah Anda yakin ingin menghapus user ini?')) {
+      try {
+        await api.delete(`/admin/users/${id}`);
+        setUsers(users.filter(u => u.id !== id));
+      } catch (err) {
+        alert(err.response?.data?.error || 'Gagal menghapus user.');
+      }
+    }
+  };
+
+  const handleAddCourse = async (e) => {
     e.preventDefault();
     if (!courseForm.code || !courseForm.name) return;
 
-    const newCourse = {
-      id: courseForm.code,
-      code: courseForm.code,
-      name: courseForm.name,
-      sks: Number(courseForm.sks),
-      semester: Number(courseForm.semester)
-    };
-
-    setCourses([...courses, newCourse]);
-    setCourseForm({ code: '', name: '', sks: 3, semester: 1 });
-    setIsCourseModalOpen(false);
-  };
-
-  const handleDeleteCourse = (id) => {
-    if (confirm('Hapus matakuliah ini?')) {
-      setCourses(courses.filter(c => c.id !== id));
+    try {
+      const response = await api.post('/admin/courses', {
+        code: courseForm.code,
+        name: courseForm.name,
+        sks: Number(courseForm.sks),
+        semester: Number(courseForm.semester)
+      });
+      setCourses([...courses, response.data]);
+      setCourseForm({ code: '', name: '', sks: 3, semester: 1 });
+      setIsCourseModalOpen(false);
+    } catch (err) {
+      alert(err.response?.data?.error || 'Gagal menambahkan matakuliah.');
     }
   };
 
-  const handleAddSchedule = (e) => {
+  const handleDeleteCourse = async (id) => {
+    if (confirm('Hapus matakuliah ini?')) {
+      try {
+        await api.delete(`/admin/courses/${id}`);
+        setCourses(courses.filter(c => c.id !== id));
+      } catch (err) {
+        alert(err.response?.data?.error || 'Gagal menghapus matakuliah.');
+      }
+    }
+  };
+
+  const handleAddSchedule = async (e) => {
     e.preventDefault();
     if (!scheduleForm.courseId || !scheduleForm.lecturerId || !scheduleForm.time || !scheduleForm.room) return;
 
-    const selectedCourse = courses.find(c => c.id === scheduleForm.courseId);
-    const selectedLecturer = users.find(u => u.id === scheduleForm.lecturerId);
-
-    const newSchedule = {
-      id: String(schedules.length + 1),
-      courseName: selectedCourse ? selectedCourse.name : 'Unknown Course',
-      lecturer: selectedLecturer ? selectedLecturer.name : 'Unknown Lecturer',
-      day: scheduleForm.day,
-      time: scheduleForm.time,
-      room: scheduleForm.room
-    };
-
-    setSchedules([...schedules, newSchedule]);
-    setScheduleForm({ courseId: '', lecturerId: '', day: 'Senin', time: '', room: '' });
-    setIsScheduleModalOpen(false);
+    try {
+      const response = await api.post('/admin/schedules', {
+        courseId: scheduleForm.courseId,
+        lecturerId: scheduleForm.lecturerId,
+        day: scheduleForm.day,
+        time: scheduleForm.time,
+        room: scheduleForm.room
+      });
+      setSchedules([...schedules, response.data]);
+      setScheduleForm({ courseId: '', lecturerId: '', day: 'Senin', time: '', room: '' });
+      setIsScheduleModalOpen(false);
+    } catch (err) {
+      alert(err.response?.data?.error || 'Gagal menambahkan jadwal.');
+    }
   };
 
-  const handleDeleteSchedule = (id) => {
+  const handleDeleteSchedule = async (id) => {
     if (confirm('Batalkan jadwal kuliah ini?')) {
-      setSchedules(schedules.filter(s => s.id !== id));
+      try {
+        await api.delete(`/admin/schedules/${id}`);
+        setSchedules(schedules.filter(s => s.id !== id));
+      } catch (err) {
+        alert(err.response?.data?.error || 'Gagal menghapus jadwal.');
+      }
     }
   };
 
   // Filter users based on search
-  const filteredUsers = users.filter(user => 
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in text-left">
       {/* Title Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 text-left">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-100 m-0">Admin Dashboard</h1>
-          <p className="text-sm text-slate-400 mt-1">Kelola data master pengguna, matakuliah, dan jadwal perkuliahan.</p>
-        </div>
-        
-        {/* Navigation Tabs */}
-        <div className="flex bg-slate-900/80 p-1 rounded-xl border border-slate-800 self-start">
-          <button
-            onClick={() => setActiveTab('overview')}
-            className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${activeTab === 'overview' ? 'bg-indigo-600 text-white shadow' : 'text-slate-400 hover:text-slate-200'}`}
-          >
-            Ikhtisar
-          </button>
-          <button
-            onClick={() => setActiveTab('users')}
-            className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${activeTab === 'users' ? 'bg-indigo-600 text-white shadow' : 'text-slate-400 hover:text-slate-200'}`}
-          >
-            Kelola User
-          </button>
-          <button
-            onClick={() => setActiveTab('courses')}
-            className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${activeTab === 'courses' ? 'bg-indigo-600 text-white shadow' : 'text-slate-400 hover:text-slate-200'}`}
-          >
-            Matakuliah
-          </button>
-          <button
-            onClick={() => setActiveTab('schedules')}
-            className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${activeTab === 'schedules' ? 'bg-indigo-600 text-white shadow' : 'text-slate-400 hover:text-slate-200'}`}
-          >
-            Jadwal Kuliah
-          </button>
+          <h1 className="text-2xl font-bold tracking-tight text-stone-850 m-0">Admin Dashboard</h1>
+          <p className="text-sm text-stone-500 mt-1">Kelola data master pengguna, matakuliah, dan jadwal perkuliahan.</p>
         </div>
       </div>
 
@@ -183,46 +201,46 @@ export const AdminDashboard = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             <div className="glass p-5 rounded-2xl flex items-center justify-between text-left">
               <div>
-                <span className="text-xs text-slate-400 font-semibold tracking-wider uppercase">Mahasiswa Aktif</span>
-                <h3 className="text-2xl font-bold text-slate-100 mt-1">2,482</h3>
-                <span className="text-[10px] text-emerald-400 font-medium flex items-center gap-1 mt-1">
+                <span className="text-xs text-stone-500 font-semibold tracking-wider uppercase">Mahasiswa Aktif</span>
+                <h3 className="text-2xl font-bold text-stone-800 mt-1">2,482</h3>
+                <span className="text-[10px] text-emerald-600 font-medium flex items-center gap-1 mt-1">
                   <TrendingUp className="h-3 w-3" /> +12% semester ini
                 </span>
               </div>
-              <div className="p-3 bg-indigo-500/10 rounded-xl text-indigo-400">
+              <div className="p-3 bg-terracotta-500/10 rounded-xl text-terracotta-600">
                 <Users className="h-6 w-6" />
               </div>
             </div>
 
             <div className="glass p-5 rounded-2xl flex items-center justify-between text-left">
               <div>
-                <span className="text-xs text-slate-400 font-semibold tracking-wider uppercase">Dosen Pengajar</span>
-                <h3 className="text-2xl font-bold text-slate-100 mt-1">128</h3>
-                <span className="text-[10px] text-slate-500 font-medium mt-1 inline-block">Rasio ideal 1:19</span>
+                <span className="text-xs text-stone-500 font-semibold tracking-wider uppercase">Dosen Pengajar</span>
+                <h3 className="text-2xl font-bold text-stone-800 mt-1">128</h3>
+                <span className="text-[10px] text-stone-500 font-medium mt-1 inline-block">Rasio ideal 1:19</span>
               </div>
-              <div className="p-3 bg-amber-500/10 rounded-xl text-amber-400">
+              <div className="p-3 bg-amber-500/10 rounded-xl text-amber-600">
                 <BookOpen className="h-6 w-6" />
               </div>
             </div>
 
             <div className="glass p-5 rounded-2xl flex items-center justify-between text-left">
               <div>
-                <span className="text-xs text-slate-400 font-semibold tracking-wider uppercase">Matakuliah</span>
-                <h3 className="text-2xl font-bold text-slate-100 mt-1">{courses.length}</h3>
-                <span className="text-[10px] text-slate-500 font-medium mt-1 inline-block">Tersebar di 8 Semester</span>
+                <span className="text-xs text-stone-500 font-semibold tracking-wider uppercase">Matakuliah</span>
+                <h3 className="text-2xl font-bold text-stone-800 mt-1">{courses.length}</h3>
+                <span className="text-[10px] text-stone-500 font-medium mt-1 inline-block">Tersebar di 8 Semester</span>
               </div>
-              <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400">
+              <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-600">
                 <FileText className="h-6 w-6" />
               </div>
             </div>
 
             <div className="glass p-5 rounded-2xl flex items-center justify-between text-left">
               <div>
-                <span className="text-xs text-slate-400 font-semibold tracking-wider uppercase">Jadwal Aktif</span>
-                <h3 className="text-2xl font-bold text-slate-100 mt-1">{schedules.length}</h3>
-                <span className="text-[10px] text-emerald-400 font-medium mt-1 inline-block">Hari Senin - Jumat</span>
+                <span className="text-xs text-stone-500 font-semibold tracking-wider uppercase">Jadwal Aktif</span>
+                <h3 className="text-2xl font-bold text-stone-800 mt-1">{schedules.length}</h3>
+                <span className="text-[10px] text-emerald-600 font-medium mt-1 inline-block">Hari Senin - Jumat</span>
               </div>
-              <div className="p-3 bg-rose-500/10 rounded-xl text-rose-400">
+              <div className="p-3 bg-rose-500/10 rounded-xl text-rose-600">
                 <Calendar className="h-6 w-6" />
               </div>
             </div>
@@ -231,7 +249,7 @@ export const AdminDashboard = () => {
           {/* Quick Logs / Info panels */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-left">
             <div className="glass p-6 rounded-2xl">
-              <h4 className="font-bold text-slate-200 tracking-wide mb-4">Aktivitas Sistem Terbaru</h4>
+              <h4 className="font-bold text-stone-800 tracking-wide mb-4">Aktivitas Sistem Terbaru</h4>
               <div className="space-y-4">
                 {[
                   { time: '10 menit lalu', text: 'Admin menambahkan mahasiswa baru: Lia Safitri (NIM: 2201010080)', type: 'user' },
@@ -239,12 +257,12 @@ export const AdminDashboard = () => {
                   { time: '3 jam lalu', text: 'Perubahan jadwal kuliah Pemrograman Web oleh admin', type: 'schedule' }
                 ].map((act, idx) => (
                   <div key={idx} className="flex gap-3 text-xs leading-relaxed">
-                    <div className="mt-0.5 p-1 rounded-md bg-slate-800 text-slate-400">
+                    <div className="mt-0.5 p-1 rounded-md bg-stone-100 text-stone-500 border border-stone-200/40">
                       <Clock className="h-3.5 w-3.5" />
                     </div>
                     <div>
-                      <p className="text-slate-300">{act.text}</p>
-                      <span className="text-[10px] text-slate-500 font-medium mt-0.5 inline-block">{act.time}</span>
+                      <p className="text-stone-750">{act.text}</p>
+                      <span className="text-[10px] text-stone-400 font-medium mt-0.5 inline-block">{act.time}</span>
                     </div>
                   </div>
                 ))}
@@ -253,15 +271,15 @@ export const AdminDashboard = () => {
 
             <div className="glass p-6 rounded-2xl flex flex-col justify-between">
               <div>
-                <h4 className="font-bold text-slate-200 tracking-wide mb-2">Informasi Penting Akademik</h4>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Pengisian Kartu Rencana Studi (KRS) untuk Semester Genap akan dibuka mulai tanggal 1 Juni 2026. 
+                <h4 className="font-bold text-stone-800 tracking-wide mb-2">Informasi Penting Akademik</h4>
+                <p className="text-xs text-stone-550 leading-relaxed">
+                  Pengisian Kartu Rencana Studi (KRS) untuk Semester Genap akan dibuka mulai tanggal 1 Juni 2026.
                   Pastikan semua dosen wali telah memvalidasi nilai KHS semester sebelumnya untuk masing-masing bimbingan.
                 </p>
               </div>
-              <div className="mt-4 pt-4 border-t border-slate-800/60 flex justify-between items-center text-xs text-slate-400">
+              <div className="mt-4 pt-4 border-t border-stone-200/60 flex justify-between items-center text-xs text-stone-500">
                 <span>Periode: 2025/2026 Genap</span>
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold uppercase tracking-wider text-[10px]">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-250/50 font-semibold uppercase tracking-wider text-[10px]">
                   Aktif
                 </span>
               </div>
@@ -275,18 +293,18 @@ export const AdminDashboard = () => {
         <div className="space-y-4 text-left">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="relative max-w-sm w-full">
-              <Search className="absolute left-3 top-2.5 h-4.5 w-4.5 text-slate-500" />
+              <Search className="absolute left-3 top-2.5 h-4.5 w-4.5 text-stone-400" />
               <input
                 type="text"
                 placeholder="Cari user berdasarkan nama atau email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-slate-900/60 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-indigo-500"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-stone-200 rounded-xl text-sm text-stone-850 placeholder-stone-400 focus:outline-none focus:border-terracotta-500"
               />
             </div>
-            <Button 
-              variant="primary" 
-              icon={UserPlus} 
+            <Button
+              variant="primary"
+              icon={UserPlus}
               onClick={() => setIsUserModalOpen(true)}
               className="shadow-md"
             >
@@ -296,35 +314,40 @@ export const AdminDashboard = () => {
 
           <Table
             columns={[
-              { header: 'Nama Lengkap', key: 'name', render: (val, row) => (
-                <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 rounded bg-indigo-600/10 text-indigo-400 font-bold flex items-center justify-center text-sm uppercase">
-                    {val.charAt(0)}
+              {
+                header: 'Nama Lengkap', key: 'name', render: (val, row) => (
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded bg-terracotta-50 text-terracotta-600 font-bold flex items-center justify-center text-sm uppercase border border-terracotta-100/50">
+                      {val.charAt(0)}
+                    </div>
+                    <div>
+                      <span className="font-semibold text-stone-800 block">{val}</span>
+                      <span className="text-[10px] text-stone-450">{row.email}</span>
+                    </div>
                   </div>
-                  <div>
-                    <span className="font-semibold text-slate-200 block">{val}</span>
-                    <span className="text-[10px] text-slate-500">{row.email}</span>
-                  </div>
-                </div>
-              )},
-              { header: 'Peran', key: 'role', render: (val) => (
-                <span className={`inline-flex px-2 py-0.5 text-[10px] font-semibold border rounded-md uppercase tracking-wider ${
-                  val === 'dosen' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
-                }`}>
-                  {val}
-                </span>
-              )},
+                )
+              },
+              {
+                header: 'Peran', key: 'role', render: (val) => (
+                  <span className={`inline-flex px-2 py-0.5 text-[10px] font-semibold border rounded-md uppercase tracking-wider ${val === 'dosen' ? 'bg-amber-50 text-amber-700 border-amber-200/50' : 'bg-terracotta-50 text-terracotta-700 border-terracotta-200/50'
+                    }`}>
+                    {val}
+                  </span>
+                )
+              },
               { header: 'Keterangan/NIM/NIDN', key: 'detail' },
-              { header: 'Aksi', key: 'id', className: 'text-right', render: (val) => (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleDeleteUser(val)}
-                  className="text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 p-1.5 rounded-lg"
-                >
-                  <Trash2 className="h-4.5 w-4.5" />
-                </Button>
-              )}
+              {
+                header: 'Aksi', key: 'id', className: 'text-right', render: (val) => (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleDeleteUser(val)}
+                    className="text-rose-600 hover:text-rose-700 hover:bg-rose-50 p-1.5 rounded-lg"
+                  >
+                    <Trash2 className="h-4.5 w-4.5" />
+                  </Button>
+                )
+              }
             ]}
             data={filteredUsers}
           />
@@ -335,10 +358,10 @@ export const AdminDashboard = () => {
       {activeTab === 'courses' && (
         <div className="space-y-4 text-left">
           <div className="flex justify-between items-center">
-            <h3 className="font-bold text-slate-200">Daftar Matakuliah Master</h3>
-            <Button 
-              variant="primary" 
-              icon={Plus} 
+            <h3 className="font-bold text-stone-850">Daftar Matakuliah Master</h3>
+            <Button
+              variant="primary"
+              icon={Plus}
               onClick={() => setIsCourseModalOpen(true)}
             >
               Tambah Matakuliah
@@ -347,20 +370,22 @@ export const AdminDashboard = () => {
 
           <Table
             columns={[
-              { header: 'Kode MK', key: 'code', className: 'font-mono text-slate-400' },
-              { header: 'Nama Matakuliah', key: 'name', className: 'font-semibold text-slate-200' },
+              { header: 'Kode MK', key: 'code', className: 'font-mono text-stone-500' },
+              { header: 'Nama Matakuliah', key: 'name', className: 'font-semibold text-stone-800' },
               { header: 'Bobot SKS', key: 'sks', render: (val) => `${val} SKS` },
               { header: 'Rekomendasi Semester', key: 'semester', render: (val) => `Semester ${val}` },
-              { header: 'Aksi', key: 'id', className: 'text-right', render: (val) => (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleDeleteCourse(val)}
-                  className="text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 p-1.5 rounded-lg"
-                >
-                  <Trash2 className="h-4.5 w-4.5" />
-                </Button>
-              )}
+              {
+                header: 'Aksi', key: 'id', className: 'text-right', render: (val) => (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleDeleteCourse(val)}
+                    className="text-rose-600 hover:text-rose-700 hover:bg-rose-50 p-1.5 rounded-lg"
+                  >
+                    <Trash2 className="h-4.5 w-4.5" />
+                  </Button>
+                )
+              }
             ]}
             data={courses}
           />
@@ -371,10 +396,10 @@ export const AdminDashboard = () => {
       {activeTab === 'schedules' && (
         <div className="space-y-4 text-left">
           <div className="flex justify-between items-center">
-            <h3 className="font-bold text-slate-200">Jadwal Kuliah Aktif</h3>
-            <Button 
-              variant="primary" 
-              icon={Plus} 
+            <h3 className="font-bold text-stone-850">Jadwal Kuliah Aktif</h3>
+            <Button
+              variant="primary"
+              icon={Plus}
               onClick={() => setIsScheduleModalOpen(true)}
             >
               Buat Jadwal Kuliah
@@ -383,30 +408,36 @@ export const AdminDashboard = () => {
 
           <Table
             columns={[
-              { header: 'Matakuliah', key: 'courseName', className: 'font-semibold text-slate-200' },
+              { header: 'Matakuliah', key: 'courseName', className: 'font-semibold text-stone-800' },
               { header: 'Dosen Pengajar', key: 'lecturer' },
-              { header: 'Waktu Perkulihan', key: 'day', render: (_, row) => (
-                <div className="flex items-center gap-1.5 text-xs text-slate-300">
-                  <Clock className="h-4 w-4 text-slate-500" />
-                  <span>{row.day}, {row.time}</span>
-                </div>
-              )},
-              { header: 'Ruangan', key: 'room', render: (val) => (
-                <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                  <MapPin className="h-4 w-4 text-slate-600" />
-                  <span>{val}</span>
-                </div>
-              )},
-              { header: 'Aksi', key: 'id', className: 'text-right', render: (val) => (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleDeleteSchedule(val)}
-                  className="text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 p-1.5 rounded-lg"
-                >
-                  <Trash2 className="h-4.5 w-4.5" />
-                </Button>
-              )}
+              {
+                header: 'Waktu Perkulihan', key: 'day', render: (_, row) => (
+                  <div className="flex items-center gap-1.5 text-xs text-stone-600">
+                    <Clock className="h-4 w-4 text-stone-400" />
+                    <span>{row.day}, {row.time}</span>
+                  </div>
+                )
+              },
+              {
+                header: 'Ruangan', key: 'room', render: (val) => (
+                  <div className="flex items-center gap-1.5 text-xs text-stone-500">
+                    <MapPin className="h-4 w-4 text-stone-400" />
+                    <span>{val}</span>
+                  </div>
+                )
+              },
+              {
+                header: 'Aksi', key: 'id', className: 'text-right', render: (val) => (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleDeleteSchedule(val)}
+                    className="text-rose-600 hover:text-rose-700 hover:bg-rose-50 p-1.5 rounded-lg"
+                  >
+                    <Trash2 className="h-4.5 w-4.5" />
+                  </Button>
+                )
+              }
             ]}
             data={schedules}
           />
@@ -441,6 +472,15 @@ export const AdminDashboard = () => {
             placeholder="nama@sia.ac.id"
             value={userForm.email}
             onChange={(e) => setUserForm({ ...userForm, email: e.target.value })}
+            required
+          />
+          <InputForm
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="Masukkan password"
+            value={userForm.password}
+            onChange={(e) => setUserForm({ ...userForm, password: e.target.value })}
             required
           />
           <div className="grid grid-cols-2 gap-4">

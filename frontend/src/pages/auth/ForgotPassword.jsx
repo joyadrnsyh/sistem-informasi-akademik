@@ -22,30 +22,30 @@ export const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#070a13] px-4 relative overflow-hidden font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-stone-50 px-4 relative overflow-hidden font-sans">
       {/* Decorative Blur Spheres */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-rose-600/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-terracotta-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-terracotta-600/5 blur-[120px] pointer-events-none" />
 
       {/* Main card wrapper */}
       <div className="w-full max-w-md glass p-8 rounded-2xl shadow-2xl relative z-10 animate-fade-in">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-400 text-white font-bold text-2xl shadow-lg shadow-indigo-500/20 mb-3">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-terracotta-600 to-terracotta-400 text-white font-bold text-2xl shadow-lg shadow-terracotta-500/15 mb-3">
             U
           </div>
-          <h2 className="text-2xl font-bold text-slate-100 tracking-wide">Lupa Kata Sandi</h2>
-          <p className="text-sm text-slate-400 mt-1">Atur ulang sandi portal akademik Anda</p>
+          <h2 className="text-2xl font-bold text-stone-800 tracking-wide">Lupa Kata Sandi</h2>
+          <p className="text-sm text-stone-500 mt-1">Atur ulang sandi portal akademik Anda</p>
         </div>
 
         {submitted ? (
           // Success State
           <div className="text-center animate-fade-in">
-            <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-4">
+            <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-250/50 mb-4">
               <CheckCircle2 className="h-6 w-6" />
             </div>
-            <h3 className="text-lg font-semibold text-slate-200">Email Terkirim!</h3>
-            <p className="text-sm text-slate-400 mt-2 leading-relaxed">
+            <h3 className="text-lg font-semibold text-stone-800">Email Terkirim!</h3>
+            <p className="text-sm text-stone-500 mt-2 leading-relaxed">
               Tautan atur ulang kata sandi telah kami kirimkan ke email <strong>{email}</strong> jika alamat tersebut terdaftar.
             </p>
             <Button
@@ -60,7 +60,7 @@ export const ForgotPassword = () => {
         ) : (
           // Form State
           <form onSubmit={handleSubmit}>
-            <p className="text-xs text-slate-400 mb-5 leading-relaxed">
+            <p className="text-xs text-stone-550 mb-5 leading-relaxed">
               Masukkan alamat email institusi Anda. Kami akan mengirimkan tautan verifikasi untuk membuat kata sandi baru.
             </p>
             
@@ -87,7 +87,7 @@ export const ForgotPassword = () => {
             <button
               type="button"
               onClick={() => navigate('/login')}
-              className="mt-5 w-full flex items-center justify-center gap-2 text-xs text-slate-400 hover:text-slate-300 transition-colors font-medium cursor-pointer"
+              className="mt-5 w-full flex items-center justify-center gap-2 text-xs text-stone-500 hover:text-stone-800 transition-colors font-medium cursor-pointer"
             >
               <ArrowLeft className="h-4 w-4" />
               Kembali ke Halaman Login

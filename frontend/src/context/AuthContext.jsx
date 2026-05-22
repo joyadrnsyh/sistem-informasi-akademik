@@ -39,63 +39,57 @@ const MOCK_USERS = {
   }
 };
 
+import api from '../services/api';
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Load user from localStorage on initialization
+  // Load user from backend on initialization if token exists
   useEffect(() => {
-    const savedUser = localStorage.getItem('sia_user');
-    const savedToken = localStorage.getItem('sia_token');
-    
-    if (savedUser && savedToken) {
-      setUser(JSON.parse(savedUser));
-    }
-    setLoading(false);
+    const fetchMe = async () => {
+      const savedToken = localStorage.getItem('sia_token');
+      if (savedToken) {
+        try {
+          const response = await api.get('/auth/me');
+          setUser(response.data);
+          localStorage.setItem('sia_user', JSON.stringify(response.data));
+        } catch (err) {
+          console.error('Session restoration failed:', err);
+          localStorage.removeItem('sia_user');
+          localStorage.removeItem('sia_token');
+          setUser(null);
+        }
+      }
+      setLoading(false);
+    };
+    fetchMe();
   }, []);
 
   /**
-   * Logs in a user using email and password.
-   * Supports mock credentials:
-   * - admin@sia.ac.id / admin123
-   * - dosen@sia.ac.id / dosen123
-   * - mhs@sia.ac.id / mhs123
+   * Logs in a user using email and password via backend.
    */
   const login = async (email, password) => {
     setLoading(true);
     setError(null);
-    
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 800));
 
     try {
-      const trimmedEmail = email.trim().toLowerCase();
-      const mockUser = MOCK_USERS[trimmedEmail];
+      const response = await api.post('/auth/login', { email, password });
+      const { token, user: loggedUser } = response.data;
       
-      // Match passwords based on the mock roles
-      const expectedPassword = 
-        trimmedEmail === 'admin@sia.ac.id' ? 'admin123' :
-        trimmedEmail === 'dosen@sia.ac.id' ? 'dosen123' :
-        trimmedEmail === 'mhs@sia.ac.id' ? 'mhs123' : null;
-
-      if (mockUser && expectedPassword === password) {
-        const token = `mock-jwt-token-for-${mockUser.role}-${Date.now()}`;
-        
-        // Save to localStorage
-        localStorage.setItem('sia_user', JSON.stringify(mockUser));
-        localStorage.setItem('sia_token', token);
-        
-        setUser(mockUser);
-        setLoading(false);
-        return { success: true, user: mockUser };
-      } else {
-        throw new Error('Email atau password salah!');
-      }
-    } catch (err) {
-      setError(err.message);
+      // Save to localStorage
+      localStorage.setItem('sia_user', JSON.stringify(loggedUser));
+      localStorage.setItem('sia_token', token);
+      
+      setUser(loggedUser);
       setLoading(false);
-      return { success: false, error: err.message };
+      return { success: true, user: loggedUser };
+    } catch (err) {
+      const errMsg = err.response?.data?.error || err.message || 'Terjadi kesalahan login.';
+      setError(errMsg);
+      setLoading(false);
+      return { success: false, error: errMsg };
     }
   };
 

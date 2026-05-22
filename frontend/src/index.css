@@ -1,15 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --color-terracotta-50: #fdf6f4;
+  --color-terracotta-100: #fbece7;
+  --color-terracotta-200: #f7d4c9;
+  --color-terracotta-300: #f0b29e;
+  --color-terracotta-400: #e5876d;
+  --color-terracotta-500: #dc6344;
+  --color-terracotta-600: #c9492c;
+  --color-terracotta-700: #a73922;
+  --color-terracotta-800: #8b311f;
+  --color-terracotta-900: #742d1e;
+  --color-terracotta-950: #3f150e;
+}
+
 :root {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #0b0f19;
-  color: #f3f4f6;
+  background-color: #faf8f6;
+  color: #292524;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -21,31 +37,32 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #f5f5f4;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #e7e5e4;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #d6d3d1;
 }
 
 /* Glassmorphism utility */
 .glass {
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(220, 99, 68, 0.12);
+  box-shadow: 0 4px 20px rgba(139, 49, 31, 0.03);
 }
 
 .glass-light {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(220, 99, 68, 0.06);
 }
 
 /* Page transitions */
@@ -54,6 +71,7 @@ body {
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

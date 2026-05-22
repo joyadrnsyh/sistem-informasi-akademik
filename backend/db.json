@@ -1,0 +1,343 @@
+{
+  "users": [
+    {
+      "id": "adm-001",
+      "name": "Joyo Adi R.",
+      "email": "admin@sia.ac.id",
+      "password": "admin123",
+      "role": "admin",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+      "departement": "Bagian Administrasi Akademik (BAA)"
+    },
+    {
+      "id": "dsn-102",
+      "name": "Dr. Ahmad Fauzi, M.T.",
+      "email": "dosen@sia.ac.id",
+      "password": "dosen123",
+      "role": "dosen",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
+      "nidn": "0420088501",
+      "faculty": "Fakultas Ilmu Komputer",
+      "department": "Teknik Informatika"
+    },
+    {
+      "id": "dsn-103",
+      "name": "Dr. Retno Wahyuni",
+      "email": "retno.w@sia.ac.id",
+      "password": "dosen123",
+      "role": "dosen",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150",
+      "nidn": "0412097802",
+      "faculty": "Fakultas Ilmu Komputer",
+      "department": "Sistem Informasi"
+    },
+    {
+      "id": "mhs-204",
+      "name": "Reza Hendrawan",
+      "email": "mhs@sia.ac.id",
+      "password": "mhs123",
+      "role": "mahasiswa",
+      "avatar": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150",
+      "nim": "2201010045",
+      "faculty": "Fakultas Ilmu Komputer",
+      "department": "Teknik Informatika",
+      "semester": 4,
+      "academicYear": "2025/2026 Ganjil",
+      "ips": 3.82,
+      "ipk": 3.65,
+      "sksTaken": 84
+    },
+    {
+      "id": "mhs-205",
+      "name": "Lia Safitri",
+      "email": "lia.safitri@sia.ac.id",
+      "password": "mhs123",
+      "role": "mahasiswa",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
+      "nim": "2201010080",
+      "faculty": "Fakultas Ilmu Komputer",
+      "department": "Sistem Informasi",
+      "semester": 4,
+      "academicYear": "2025/2026 Ganjil",
+      "ips": 3.75,
+      "ipk": 3.58,
+      "sksTaken": 84
+    },
+    {
+      "id": "mhs-1779469073459",
+      "name": "Joy Adriansyah",
+      "email": "2200018107@sia.ac.id",
+      "password": "12345",
+      "role": "mahasiswa",
+      "avatar": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150",
+      "nim": "2200018107",
+      "faculty": "Fakultas Ilmu Komputer",
+      "department": "Teknik Informatika",
+      "semester": 1,
+      "academicYear": "2025/2026 Ganjil",
+      "ips": 0,
+      "ipk": 0,
+      "sksTaken": 0
+    }
+  ],
+  "courses": [
+    {
+      "id": "MK-101",
+      "code": "IF2204",
+      "name": "Pemrograman Web",
+      "sks": 3,
+      "semester": 4
+    },
+    {
+      "id": "MK-102",
+      "code": "IF2205",
+      "name": "Basis Data Lanjut",
+      "sks": 3,
+      "semester": 4
+    },
+    {
+      "id": "MK-103",
+      "code": "IF3201",
+      "name": "Kecerdasan Buatan",
+      "sks": 4,
+      "semester": 6
+    },
+    {
+      "id": "MK-104",
+      "code": "IF1205",
+      "name": "Interaksi Manusia & Komputer",
+      "sks": 2,
+      "semester": 2
+    }
+  ],
+  "schedules": [
+    {
+      "id": "S-01",
+      "courseId": "MK-101",
+      "courseName": "Pemrograman Web",
+      "lecturerId": "dsn-102",
+      "lecturer": "Dr. Ahmad Fauzi, M.T.",
+      "day": "Senin",
+      "time": "08:00 - 10:30",
+      "room": "Lab Komputer 3",
+      "class": "TI-4A",
+      "studentsCount": 4
+    },
+    {
+      "id": "S-02",
+      "courseId": "MK-102",
+      "courseName": "Basis Data Lanjut",
+      "lecturerId": "dsn-103",
+      "lecturer": "Dr. Retno Wahyuni",
+      "day": "Selasa",
+      "time": "13:00 - 15:30",
+      "room": "Ruang Teori 204",
+      "class": "SI-4B",
+      "studentsCount": 1
+    },
+    {
+      "id": "S-03",
+      "courseId": "MK-103",
+      "courseName": "Kecerdasan Buatan",
+      "lecturerId": "dsn-102",
+      "lecturer": "Dr. Ahmad Fauzi, M.T.",
+      "day": "Kamis",
+      "time": "10:00 - 12:30",
+      "room": "Ruang Teori 301",
+      "class": "TI-6B",
+      "studentsCount": 2
+    }
+  ],
+  "krsOfferings": [
+    {
+      "id": "MK-2201",
+      "code": "IF2204",
+      "name": "Pemrograman Web Lanjut",
+      "sks": 3,
+      "day": "Senin",
+      "time": "08:00 - 10:30",
+      "lecturer": "Dr. Ahmad Fauzi, M.T.",
+      "room": "Lab Komputer 3"
+    },
+    {
+      "id": "MK-2202",
+      "code": "IF2205",
+      "name": "Basis Data Lanjut",
+      "sks": 3,
+      "day": "Selasa",
+      "time": "13:00 - 15:30",
+      "lecturer": "Dr. Retno Wahyuni",
+      "room": "Ruang Teori 204"
+    },
+    {
+      "id": "MK-2203",
+      "code": "IF2206",
+      "name": "Pemrograman Berorientasi Objek",
+      "sks": 4,
+      "day": "Rabu",
+      "time": "10:00 - 13:20",
+      "lecturer": "Ir. Hermawan, M.Kom.",
+      "room": "Lab Komputer 1"
+    },
+    {
+      "id": "MK-2204",
+      "code": "IF2207",
+      "name": "Jaringan Komputer",
+      "sks": 3,
+      "day": "Jumat",
+      "time": "08:00 - 10:30",
+      "lecturer": "Eko Prasetyo, M.T.",
+      "room": "Lab Jaringan"
+    },
+    {
+      "id": "MK-2205",
+      "code": "IF2208",
+      "name": "Grafika Komputer",
+      "sks": 3,
+      "day": "Kamis",
+      "time": "13:00 - 15:30",
+      "lecturer": "Indra Gunawan, M.T.",
+      "room": "Ruang Teori 302"
+    }
+  ],
+  "enrolledKrs": [
+    {
+      "studentId": "mhs-204",
+      "courseId": "MK-2201"
+    }
+  ],
+  "khsRecords": [
+    {
+      "studentId": "mhs-204",
+      "code": "IF1201",
+      "name": "Pemrograman Dasar",
+      "sks": 3,
+      "grade": "A",
+      "score": 92
+    },
+    {
+      "studentId": "mhs-204",
+      "code": "IF1202",
+      "name": "Logika Informatika",
+      "sks": 3,
+      "grade": "B+",
+      "score": 82
+    },
+    {
+      "studentId": "mhs-204",
+      "code": "IF1203",
+      "name": "Arsitektur Komputer",
+      "sks": 3,
+      "grade": "A",
+      "score": 88
+    },
+    {
+      "studentId": "mhs-204",
+      "code": "IF1204",
+      "name": "Kalkulus I",
+      "sks": 3,
+      "grade": "B",
+      "score": 76
+    },
+    {
+      "studentId": "mhs-204",
+      "code": "IF1205",
+      "name": "Interaksi Manusia Komputer",
+      "sks": 2,
+      "grade": "A",
+      "score": 95
+    },
+    {
+      "studentId": "mhs-205",
+      "code": "IF1201",
+      "name": "Pemrograman Dasar",
+      "sks": 3,
+      "grade": "A-",
+      "score": 88
+    }
+  ],
+  "studentGrades": [
+    {
+      "courseId": "MK-101",
+      "studentId": "mhs-204",
+      "name": "Reza Hendrawan",
+      "tugas": 85,
+      "uts": 80,
+      "uas": 88
+    },
+    {
+      "courseId": "MK-101",
+      "studentId": "mhs-205",
+      "name": "Lia Safitri",
+      "tugas": 90,
+      "uts": 85,
+      "uas": 92
+    },
+    {
+      "courseId": "MK-101",
+      "studentId": "mhs-201",
+      "name": "Budi Darmawan",
+      "tugas": 70,
+      "uts": 75,
+      "uas": 68
+    },
+    {
+      "courseId": "MK-101",
+      "studentId": "mhs-202",
+      "name": "Siti Rahma",
+      "tugas": 60,
+      "uts": 65,
+      "uas": 72
+    },
+    {
+      "courseId": "MK-103",
+      "studentId": "mhs-204",
+      "name": "Reza Hendrawan",
+      "tugas": 80,
+      "uts": 78,
+      "uas": 82
+    },
+    {
+      "courseId": "MK-103",
+      "studentId": "mhs-201",
+      "name": "Budi Darmawan",
+      "tugas": 75,
+      "uts": 70,
+      "uas": 80
+    }
+  ],
+  "uktBills": [
+    {
+      "studentId": "mhs-204",
+      "amount": 5500000,
+      "dueDate": "2026-06-15",
+      "status": "BELUM BAYAR",
+      "vaNumber": "9880422010100450",
+      "bank": "Bank Mandiri"
+    },
+    {
+      "studentId": "mhs-205",
+      "amount": 5500000,
+      "dueDate": "2026-06-15",
+      "status": "BELUM BAYAR",
+      "vaNumber": "9880422010100800",
+      "bank": "Bank Mandiri"
+    },
+    {
+      "studentId": "mhs-1779468835465",
+      "amount": 5500000,
+      "dueDate": "2026-06-15",
+      "status": "BELUM BAYAR",
+      "vaNumber": "988042200018107",
+      "bank": "Bank Mandiri"
+    },
+    {
+      "studentId": "mhs-1779469073459",
+      "amount": 5500000,
+      "dueDate": "2026-06-15",
+      "status": "BELUM BAYAR",
+      "vaNumber": "988042200018107",
+      "bank": "Bank Mandiri"
+    }
+  ]
+}
